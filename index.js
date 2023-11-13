@@ -1,6 +1,7 @@
 import OpenAI from "openai";
+import { API_KEY } from "./env_variables";
 
-const openai = new OpenAI({ apiKey: `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` });
+const openai = new OpenAI({ apiKey: API_KEY });
 
 async function default_calling() {
 

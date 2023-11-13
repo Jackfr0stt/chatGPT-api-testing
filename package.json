@@ -5,12 +5,16 @@
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
+    "tts": "node exercices/tts.js",
+    "whatsapp": "node exercices/whatsapp.js",
+    "function": "node exercices/function_calling.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Jackfr0stt",
   "license": "ISC",
   "dependencies": {
-    "openai": "^4.17.0"
+    "openai": "^4.17.0",
+    "twilio": "^4.19.0"
   },
   "type": "module"
 }
