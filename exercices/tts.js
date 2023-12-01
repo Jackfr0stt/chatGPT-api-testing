@@ -7,6 +7,7 @@ const openai = new OpenAI({ apiKey: API_KEY });
 
 const speechFile = path.resolve("./exercices/tts_files/speech.mp3");
 
+// TODO: remove this file later on
 async function main() {
   const mp3 = await openai.audio.speech.create({
     model: "tts-1-hd",
