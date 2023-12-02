@@ -1,7 +1,13 @@
-import OpenAI from "openai";
+// import OpenAI from "openai";
+import { OpenAI } from "langchain/llms/openai";
+import { ChatOpenAI } from "langchain/chat_models/openai";
 import { API_KEY } from "../env_variables.js";
+import { formatWeekPlanTemplate } from "./templates.js";
+import { HumanMessage } from "langchain/schema";
 
-const openai = new OpenAI({ apiKey: API_KEY });
+// const openai = new OpenAI({ apiKey: API_KEY });
+const llm = new OpenAI({ openAIApiKey: API_KEY, temperature: 0.9 });
+const chatModel = new ChatOpenAI({ openAIApiKey: API_KEY });
 
 // This will eventually be metadata (need to make sure about the typing later TypeScript might be a better fit)
 const user = {
@@ -18,7 +24,9 @@ const user = {
 }
 
 // retrieves information about a weekly meal plan for a user
-async function weeklyMeals({clientName, age, sex, country, heightCm, weightKg, allergies, prohibitedFood, caloriesPlan, healthIssues}) {
+async function weeklyMeals(user) {
+  const {clientName, age, sex, country, heightCm, weightKg, allergies, prohibitedFood, caloriesPlan, healthIssues} = user;
+
   const messages = [
     {
       role: "user",
@@ -38,4 +46,16 @@ async function weeklyMeals({clientName, age, sex, country, heightCm, weightKg, a
   console.log(content);
 }
 
-weeklyMeals(user);
+// retrieves information about a weekly meal plan for a user
+async function useTemplate(user) {
+  const payload = await formatWeekPlanTemplate(user);
+  console.log(payload);
+
+  const messages = [new HumanMessage({ content: payload })];
+
+  const response = await llm.predictMessages(messages);
+  console.log(response.content);
+}
+
+// await weeklyMeals(user);
+await useTemplate(user);

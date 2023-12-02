@@ -5,8 +5,8 @@
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
-    "tts": "node exercices/tts.js",
-    "foodApp": "node exercices/food_app.js",
+    "tts": "node src/tts.js",
+    "foodApp": "node src/food_app.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Jackfr0stt",
