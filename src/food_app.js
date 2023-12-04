@@ -2,19 +2,34 @@
 import { OpenAI } from "langchain/llms/openai";
 import { ChatOpenAI } from "langchain/chat_models/openai";
 import { API_KEY } from "../env_variables.js";
-import { formatWeekPlanTemplate } from "./templates.js";
+import { formatWeekPlanTemplate, testTemplate } from "./templates.js";
 import { HumanMessage } from "langchain/schema";
 
 // const openai = new OpenAI({ apiKey: API_KEY });
-const llm = new OpenAI({ openAIApiKey: API_KEY, temperature: 0.9 });
-const chatModel = new ChatOpenAI({ openAIApiKey: API_KEY });
+const llm = new OpenAI({
+  openAIApiKey: API_KEY,
+  temperature: 0.9,
+  modelName: "gpt-3.5-turbo-instruct",
+  maxTokens: -1,
+  maxRetries: 10,
+  maxConcurrency: 5,
+  // verbose: true
+});
+const chatModel = new ChatOpenAI({
+  openAIApiKey: API_KEY,
+  temperature: 0.9,
+  modelName: "gpt-3.5-turbo-instruct",
+  maxTokens: -1,
+  maxRetries: 10,
+  maxConcurrency: 5,
+});
 
 // This will eventually be metadata (need to make sure about the typing later TypeScript might be a better fit)
 const user = {
   clientName: 'Tau',
   age: 30,
   sex: 'female',
-  country: 'portugal',
+  country: 'Portugal',
   heightCm: 164,
   weightKg: 90,
   allergies: ['tomato', 'almond', 'chocolate'],
@@ -48,10 +63,14 @@ async function weeklyMeals(user) {
 
 // retrieves information about a weekly meal plan for a user
 async function useTemplate(user) {
-  const payload = await formatWeekPlanTemplate(user);
-  console.log(payload);
+  // const payload = await formatWeekPlanTemplate(user);
+  const payload = await testTemplate(user);
 
   const messages = [new HumanMessage({ content: payload })];
+
+  // const text = "What is your maximum output length? When I ask for a complex question you seem to stop the answer mid way.";
+  // const llmResult = await llm.predict(text);
+  // console.log(llmResult);
 
   const response = await llm.predictMessages(messages);
   console.log(response.content);

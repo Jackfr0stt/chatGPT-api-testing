@@ -24,4 +24,33 @@ export async function formatWeekPlanTemplate(user) {
   });
 
   return weekPlan;
-} 
+}
+
+export async function testTemplate(user) {
+  const {clientName, age, sex, country, heightCm, weightKg, allergies, prohibitedFood, caloriesPlan, healthIssues} = user;
+
+  const template = PromptTemplate.fromTemplate(
+    `Build me a 5 meals meal plan for today.
+    Take into consideration the following parameters:
+    clientName: {clientName}, age: {age}, sex: {sex}, country: {country},
+    height (cm): {heightCm}, weight (kg): {weightKg}, caloriesToIngest: {caloriesPlan},
+    healthIssues: {healthIssues}, prohibitedFood: {prohibitedFood}, allergies: {allergies}
+    Give me the information in bullet points and give a nice name to the recipe and show the amount of calories for each meal. Indent the recipe for each meal if possible.
+    Answer in my country language.`
+  );
+
+  const template_res = await template.format({
+    clientName: clientName,
+    age: age,
+    sex: sex,
+    country: country,
+    heightCm: heightCm,
+    weightKg: weightKg,
+    allergies: allergies,
+    prohibitedFood: prohibitedFood,
+    caloriesPlan: caloriesPlan,
+    healthIssues: healthIssues
+  });
+
+  return template_res;
+}
