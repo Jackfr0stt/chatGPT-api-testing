@@ -78,3 +78,5 @@ async function useTemplate(user) {
 
 // await weeklyMeals(user);
 await useTemplate(user);
+
+// TODO: criar função de teste à informação dada pela DB da singlestore

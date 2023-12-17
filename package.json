@@ -13,8 +13,8 @@
   "license": "ISC",
   "dependencies": {
     "langchain": "^0.0.199",
-    "openai": "^4.17.0",
-    "twilio": "^4.19.0"
+    "mysql2": "^3.6.5",
+    "openai": "^4.17.0"
   },
   "type": "module"
 }
